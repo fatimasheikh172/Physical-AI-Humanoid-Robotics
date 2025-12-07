@@ -1,0 +1,456 @@
+# API Contract: Physical AI & Humanoid Robotics Textbook Platform
+
+## Base URL
+`https://api.physicalai-textbook.com/v1`
+
+## Authentication
+All authenticated endpoints require a Bearer token in the Authorization header:
+```
+Authorization: Bearer {token}
+```
+
+## Content-Type
+All requests and responses use JSON format:
+```
+Content-Type: application/json
+Accept: application/json
+```
+
+## Error Format
+All error responses follow this format:
+```json
+{
+  "error": {
+    "code": "ERROR_CODE",
+    "message": "Human-readable error message",
+    "details": {}
+  }
+}
+```
+
+---
+
+## 1. User Management
+
+### GET /users/profile
+**Description**: Retrieve the authenticated user's profile information
+**Authentication**: Required
+**Response Codes**:
+- 200: OK
+- 401: Unauthorized
+
+**Response Body**:
+```json
+{
+  "id": "string",
+  "email": "string",
+  "name": "string",
+  "role": "student | instructor",
+  "preferences": {
+    "language": "string",
+    "theme": "light | dark",
+    "accessibility": {}
+  },
+  "createdAt": "datetime",
+  "lastLogin": "datetime"
+}
+```
+
+### PUT /users/profile
+**Description**: Update the authenticated user's profile information
+**Authentication**: Required
+**Request Body**:
+```json
+{
+  "name": "string",
+  "preferences": {
+    "language": "string",
+    "theme": "light | dark",
+    "accessibility": {}
+  }
+}
+```
+**Response Codes**:
+- 200: OK
+- 400: Invalid request body
+- 401: Unauthorized
+
+**Response Body**: Same as GET /users/profile
+
+---
+
+## 2. Textbook Content
+
+### GET /chapters
+**Description**: List all textbook chapters
+**Authentication**: Optional (required for progress tracking)
+**Query Parameters**:
+- `difficulty` (optional): beginner | intermediate | advanced
+- `language` (optional): en | ur
+- `limit` (optional): number of results to return
+- `offset` (optional): pagination offset
+
+**Response Codes**:
+- 200: OK
+- 401: Unauthorized (if authentication was provided but invalid)
+
+**Response Body**:
+```json
+{
+  "data": [
+    {
+      "id": "string",
+      "title": "string",
+      "slug": "string",
+      "order": "number",
+      "estimatedTime": "number",
+      "prerequisites": ["string"],
+      "difficulty": "beginner | intermediate | advanced",
+      "language": "string",
+      "createdAt": "datetime",
+      "updatedAt": "datetime"
+    }
+  ],
+  "pagination": {
+    "total": "number",
+    "limit": "number",
+    "offset": "number"
+  }
+}
+```
+
+### GET /chapters/{id}
+**Description**: Retrieve a specific textbook chapter by ID
+**Authentication**: Optional (required for progress tracking)
+**Parameters**:
+- `id`: Chapter ID (path parameter)
+
+**Response Codes**:
+- 200: OK
+- 404: Chapter not found
+
+**Response Body**:
+```json
+{
+  "id": "string",
+  "title": "string",
+  "slug": "string",
+  "content": "string (Markdown/MDX content)",
+  "order": "number",
+  "estimatedTime": "number",
+  "prerequisites": ["string"],
+  "difficulty": "beginner | intermediate | advanced",
+  "language": "string",
+  "exercises": [
+    {
+      "id": "string",
+      "title": "string",
+      "description": "string",
+      "type": "multiple-choice | coding | simulation | project",
+      "content": "string",
+      "difficulty": "beginner | intermediate | advanced",
+      "points": "number",
+      "order": "number",
+      "hints": ["string"],
+      "solution": "string"
+    }
+  ],
+  "simulations": [
+    {
+      "id": "string",
+      "title": "string",
+      "description": "string",
+      "model3D": "string (path to 3D model)",
+      "config": {},
+      "environment": "string",
+      "complexity": "low | medium | high",
+      "interactivityLevel": "number (0-10)"
+    }
+  ],
+  "createdAt": "datetime",
+  "updatedAt": "datetime"
+}
+```
+
+---
+
+## 3. Progress Tracking
+
+### GET /progress
+**Description**: Retrieve progress for all chapters for the authenticated user
+**Authentication**: Required
+**Query Parameters**:
+- `chapterId` (optional): Filter by specific chapter
+
+**Response Codes**:
+- 200: OK
+- 401: Unauthorized
+
+**Response Body**:
+```json
+{
+  "data": [
+    {
+      "id": "string",
+      "userId": "string",
+      "chapterId": "string",
+      "status": "not-started | in-progress | completed",
+      "completionPercentage": "number (0-100)",
+      "timeSpent": "number (seconds)",
+      "lastAccessed": "datetime",
+      "exercisesCompleted": "number",
+      "exercisesTotal": "number",
+      "simulationsInteracted": "number",
+      "createdAt": "datetime",
+      "updatedAt": "datetime"
+    }
+  ]
+}
+```
+
+### POST /progress
+**Description**: Update progress for a chapter
+**Authentication**: Required
+**Request Body**:
+```json
+{
+  "chapterId": "string",
+  "status": "not-started | in-progress | completed",
+  "completionPercentage": "number (0-100)",
+  "timeSpent": "number (seconds)",
+  "exercisesCompleted": "number",
+  "simulationsInteracted": "number",
+  "notes": "string (optional)"
+}
+```
+**Response Codes**:
+- 201: Created
+- 400: Invalid request body
+- 401: Unauthorized
+
+**Response Body**: Same as GET /progress item
+
+---
+
+## 4. Simulations
+
+### GET /simulations
+**Description**: List available simulations
+**Authentication**: Optional
+**Query Parameters**:
+- `chapterId` (optional): Filter by chapter
+- `complexity` (optional): low | medium | high
+
+**Response Codes**:
+- 200: OK
+
+**Response Body**:
+```json
+{
+  "data": [
+    {
+      "id": "string",
+      "title": "string",
+      "description": "string",
+      "model3D": "string (path to 3D model)",
+      "config": {},
+      "environment": "string",
+      "complexity": "low | medium | high",
+      "interactivityLevel": "number (0-10)",
+      "chapterId": "string (optional)",
+      "createdAt": "datetime",
+      "updatedAt": "datetime"
+    }
+  ]
+}
+```
+
+### GET /simulations/{id}/session
+**Description**: Initialize a simulation session
+**Authentication**: Required
+**Parameters**:
+- `id`: Simulation ID (path parameter)
+
+**Response Codes**:
+- 201: Created
+- 401: Unauthorized
+- 404: Simulation not found
+
+**Response Body**:
+```json
+{
+  "sessionId": "string",
+  "simulationId": "string",
+  "userId": "string",
+  "startTime": "datetime",
+  "parameters": {}
+}
+```
+
+### PUT /simulations/{id}/session/{sessionId}
+**Description**: Update a simulation session with results
+**Authentication**: Required
+**Parameters**:
+- `id`: Simulation ID (path parameter)
+- `sessionId`: Session ID (path parameter)
+**Request Body**:
+```json
+{
+  "parameters": {},
+  "results": {}
+}
+```
+**Response Codes**:
+- 200: OK
+- 401: Unauthorized
+- 404: Simulation or session not found
+
+**Response Body**: Updated session information
+
+---
+
+## 5. Exercises
+
+### POST /exercises/{id}/submit
+**Description**: Submit an answer for an exercise
+**Authentication**: Required
+**Parameters**:
+- `id`: Exercise ID (path parameter)
+**Request Body**:
+```json
+{
+  "answer": "any (user's answer)",
+  "sessionData": {} (optional, simulation state, etc.)
+}
+```
+**Response Codes**:
+- 201: Submitted
+- 400: Invalid answer format
+- 401: Unauthorized
+
+**Response Body**:
+```json
+{
+  "exerciseId": "string",
+  "userId": "string",
+  "answer": "any",
+  "correct": "boolean",
+  "feedback": "string",
+  "pointsAwarded": "number",
+  "timestamp": "datetime"
+}
+```
+
+---
+
+## 6. AI Tutor
+
+### POST /ai-tutor/query
+**Description**: Send a query to the AI tutor
+**Authentication**: Required
+**Request Body**:
+```json
+{
+  "query": "string (user's question)",
+  "context": {
+    "chapterId": "string (optional)",
+    "simulationId": "string (optional)",
+    "additionalContext": "string (optional)"
+  }
+}
+```
+**Response Codes**:
+- 200: OK
+- 400: Invalid query
+- 401: Unauthorized
+
+**Response Body**:
+```json
+{
+  "queryId": "string",
+  "query": "string",
+  "response": "string",
+  "timestamp": "datetime",
+  "context": {}
+}
+```
+
+### POST /ai-tutor/{queryId}/rate
+**Description**: Rate the AI tutor's response
+**Authentication**: Required
+**Parameters**:
+- `queryId`: Query ID (path parameter)
+**Request Body**:
+```json
+{
+  "rating": "number (1-5)"
+}
+```
+**Response Codes**:
+- 200: OK
+- 400: Invalid rating
+- 401: Unauthorized
+- 404: Query not found
+
+**Response Body**: Empty response body
+
+---
+
+## 7. Courses (Instructor Functions)
+
+### POST /courses
+**Description**: Create a new course (instructor only)
+**Authentication**: Required (instructor role)
+**Request Body**:
+```json
+{
+  "title": "string",
+  "description": "string",
+  "startDate": "date",
+  "endDate": "date",
+  "chapterIds": ["string"]
+}
+```
+**Response Codes**:
+- 201: Created
+- 401: Unauthorized
+- 403: Insufficient permissions
+
+**Response Body**: Course object
+
+### GET /courses/{id}/students
+**Description**: Get list of students enrolled in a course (instructor only)
+**Authentication**: Required (instructor role)
+**Parameters**:
+- `id`: Course ID (path parameter)
+
+**Response Codes**:
+- 200: OK
+- 401: Unauthorized
+- 403: Insufficient permissions
+- 404: Course not found
+
+**Response Body**:
+```json
+{
+  "data": [
+    {
+      "id": "string",
+      "name": "string",
+      "email": "string",
+      "progress": {
+        "overallCompletion": "number",
+        "chaptersCompleted": "number",
+        "exercisesCompleted": "number"
+      }
+    }
+  ]
+}
+```
+
+---
+
+## Rate Limits
+- General API requests: 1000 requests/hour
+- AI Tutor queries: 50 queries/hour
+- Simulation initializations: 20/hour

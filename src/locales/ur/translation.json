@@ -1,0 +1,48 @@
+{
+  "common": {
+    "welcome": "فزیکل ای ۔ انسان نما روبوٹکس کے الیکٹرونک کتاب میں خوش آمدید",
+    "loading": "لوڈ ہو رہا ہے...",
+    "error": "ایک خرابی پیش آگئی",
+    "retry": "دوبارہ کوشش کریں",
+    "save": "محفوظ کریں",
+    "cancel": "منسوخ کریں",
+    "next": "اگلا",
+    "previous": "پچھلا"
+  },
+  "navigation": {
+    "home": "ہوم",
+    "textbook": "کتاب",
+    "modules": "ماڈیولز",
+    "dashboard": "ڈیش بورڈ",
+    "login": "لاگ ان",
+    "logout": "لاگ آؤٹ",
+    "register": "رجسٹر"
+  },
+  "simulations": {
+    "title": "انٹرایکٹو سیمیولیشنز",
+    "play": "چلائیں",
+    "pause": "روکیں",
+    "reset": "ری سیٹ",
+    "loadingSimulation": "سیمیولیشن لوڈ ہو رہا ہے..."
+  },
+  "exercises": {
+    "title": "ورکشاپس",
+    "checkAnswer": "جواب چیک کریں",
+    "submit": "جمع کرائیں",
+    "completed": "مکمل ہو گیا",
+    "grade": "گریڈ"
+  },
+  "aiTutor": {
+    "title": "ای آئی ٹیوٹر",
+    "askQuestion": "سوال پوچھیں...",
+    "send": "بھیجیں",
+    "rateResponse": "جواب کی درجہ بندی کریں"
+  },
+  "progress": {
+    "title": "پیشرفت",
+    "completed": "مکمل",
+    "inProgress": "جاري ہے",
+    "notStarted": "شروع نہيں کيا",
+    "overallProgress": "کل پیشرفت"
+  }
+}

@@ -1,0 +1,569 @@
+# API Contract: Module 1 - The Robotic Nervous System (ROS 2)
+
+**Feature**: Module 1 - The Robotic Nervous System (ROS 2)
+**Date**: 2025-12-07
+**Version**: 1.0.0
+
+## Overview
+
+This document defines the API contracts for Module 1 of the Physical AI & Humanoid Robotics textbook, focusing on ROS 2 fundamentals. The API provides endpoints for textbook content, progress tracking, assessments, and AI tutor integration specifically for the ROS 2 module.
+
+## Base URL
+
+`https://api.physical-ai-textbook.com/v1`
+
+## Authentication
+
+All endpoints require authentication using JWT tokens, except the health check and public content endpoints:
+
+```
+Authorization: Bearer {jwt_token}
+```
+
+## Common Headers
+
+```http
+Content-Type: application/json
+Accept: application/json
+X-API-Version: 1.0.0
+```
+
+## Common Error Responses
+
+All API endpoints may return the following common error responses:
+
+### 400 Bad Request
+```json
+{
+  "error": "validation_error",
+  "message": "Request data validation failed",
+  "details": {
+    "field": "error_description"
+  }
+}
+```
+
+### 401 Unauthorized
+```json
+{
+  "error": "unauthorized",
+  "message": "Authentication required or token invalid"
+}
+```
+
+### 403 Forbidden
+```json
+{
+  "error": "forbidden",
+  "message": "Insufficient permissions for requested operation"
+}
+```
+
+### 404 Not Found
+```json
+{
+  "error": "not_found",
+  "message": "Requested resource does not exist"
+}
+```
+
+### 500 Internal Server Error
+```json
+{
+  "error": "internal_error",
+  "message": "An unexpected error occurred"
+}
+```
+
+## Module 1 Specific Endpoints
+
+### Module Information
+
+#### GET /modules/ros2-fundamentals
+Get information about the ROS 2 fundamentals module
+
+**Response (200 OK):**
+```json
+{
+  "module_id": "9f3a77e8-5d8e-4d2f-9b5f-8e3f4d2f1b5f",
+  "title": "The Robotic Nervous System (ROS 2)",
+  "description": "Learn ROS 2 architecture, communication patterns, and how to bridge AI agents with ROS controllers",
+  "duration_weeks": 3,
+  "learning_objectives": [
+    "Understand ROS 2 architecture",
+    "Build custom ROS 2 nodes using Python",
+    "Establish communication using topics, services, and actions",
+    "Control a simulated robot using ROS 2",
+    "Bridge Python AI agents with ROS controllers using rclpy",
+    "Understand and use URDF for humanoid robot structure"
+  ],
+  "prerequisites": [
+    "Basic Python programming",
+    "Fundamentals of robotics concepts"
+  ],
+  "progress_tracking_enabled": true,
+  "ai_tutor_enabled": true,
+  "created_at": "2025-01-15T08:00:00.000Z",
+  "updated_at": "2025-01-15T08:00:00.000Z"
+}
+```
+
+#### GET /modules/ros2-fundamentals/weeks
+Get the three weeks of content in the ROS 2 module
+
+**Response (200 OK):**
+```json
+{
+  "weeks": [
+    {
+      "week_id": "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p",
+      "module_id": "9f3a77e8-5d8e-4d2f-9b5f-8e3f4d2f1b5f",
+      "week_number": 1,
+      "title": "ROS 2 Foundations",
+      "description": "Introduction to ROS 2 architecture, middleware, and basic communication",
+      "learning_objectives": [
+        "Understand what ROS 2 is and why it is called the 'Robotic Nervous System'",
+        "Learn ROS 2 architecture and middleware concept (DDS)",
+        "Understand Nodes and Message Passing",
+        "Setup complete ROS 2 development environment"
+      ],
+      "estimated_duration_hours": 15,
+      "order_index": 1
+    },
+    {
+      "week_id": "2b3c4d5e-6f7g-8h9i-0j1k-2l3m4n5o6p7q",
+      "module_id": "9f3a77e8-5d8e-4d2f-9b5f-8e3f4d2f1b5f",
+      "week_number": 2,
+      "title": "Communication Layer (Topics, Services, Actions)",
+      "description": "Deep understanding of ROS 2 communication patterns",
+      "learning_objectives": [
+        "Deep understanding of Topics, Services, and Actions",
+        "Learn async communication in robots",
+        "Understand message types and interfaces",
+        "Learn parameter server usage"
+      ],
+      "estimated_duration_hours": 15,
+      "order_index": 2
+    },
+    {
+      "week_id": "3c4d5e6f-7g8h-9i0j-1k2l-3m4n5o6p7q8r",
+      "module_id": "9f3a77e8-5d8e-4d2f-9b5f-8e3f4d2f1b5f",
+      "week_number": 3,
+      "title": "AI + ROS Bridge & Humanoid Structure",
+      "description": "Connecting AI agents to ROS 2 and humanoid robot modeling",
+      "learning_objectives": [
+        "Connect Python AI agents to ROS 2 using rclpy",
+        "Control a robot using AI decisions",
+        "Understand URDF for humanoid robot design",
+        "Visualize robot structure using RViz & Gazebo"
+      ],
+      "estimated_duration_hours": 15,
+      "order_index": 3
+    }
+  ]
+}
+```
+
+### Module 1 Content Endpoints
+
+#### GET /modules/ros2-fundamentals/weeks/{week_id}/content
+Get all content sections for a specific week
+
+**Response (200 OK):**
+```json
+{
+  "week_id": "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p",
+  "content_sections": [
+    {
+      "section_id": "s1a2b3c4-d5e6-f7g8-h9i0-j1k2l3m4n5o6",
+      "week_id": "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p",
+      "title": "Introduction to ROS vs ROS 2",
+      "content_type": "theory",
+      "content": "# ROS vs ROS 2\n\nROS 2 is the next generation of the Robot Operating System...",
+      "order_index": 1,
+      "estimated_completion_time_minutes": 25,
+      "difficulty_level": "beginner",
+      "requires_prerequisites": []
+    },
+    {
+      "section_id": "s2b3c4d5-e6f7-g8h9-i0j1-k2l3m4n5o6p7",
+      "week_id": "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p",
+      "title": "ROS 2 Architecture Overview",
+      "content_type": "theory",
+      "content": "## ROS 2 Architecture\n\nThe ROS 2 architecture is based on DDS middleware...",
+      "order_index": 2,
+      "estimated_completion_time_minutes": 30,
+      "difficulty_level": "intermediate",
+      "requires_prerequisites": ["s1a2b3c4-d5e6-f7g8-h9i0-j1k2l3m4n5o6"]
+    },
+    {
+      "section_id": "s3c4d5e6-f7g8-h9i0-j1k2-l3m4n5o6p7q8",
+      "week_id": "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p",
+      "title": "Installing ROS 2 Humble",
+      "content_type": "lab_instruction",
+      "content": "## Installing ROS 2 Humble\n\nFirst, add the ROS 2 repository...",
+      "order_index": 3,
+      "estimated_completion_time_minutes": 45,
+      "difficulty_level": "beginner",
+      "requires_prerequisites": []
+    }
+  ]
+}
+```
+
+#### GET /modules/ros2-fundamentals/weeks/{week_id}/labs
+Get laboratory environment details for a specific week
+
+**Response (200 OK):**
+```json
+{
+  "week_id": "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p",
+  "labs": [
+    {
+      "lab_id": "l1a2b3c4-d5e6-f7g8-h9i0-j1k2l3m4n5o6",
+      "week_id": "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p",
+      "name": "ROS 2 Workspace Setup",
+      "description": "Set up your ROS 2 workspace and run basic demo nodes",
+      "ros_distro": "humble",
+      "package_name": "week1_foundation",
+      "launch_file": "setup_demo.launch.py",
+      "dependencies": [
+        "ros-humble-desktop",
+        "python3-colcon-common-extensions"
+      ],
+      "setup_instructions": "## Setup Instructions\n\n1. Create workspace: mkdir -p ~/ros2_textbook_ws/src\n2. Navigate to workspace: cd ~/ros2_textbook_ws\n3. Build packages: colcon build\n4. Source environment: source install/setup.bash",
+      "evaluation_criteria": {
+        "criteria": [
+          "Successfully build the workspace",
+          "Run demo nodes without errors",
+          "Understand basic ROS 2 commands"
+        ],
+        "weights": {
+          "build_success": 0.4,
+          "demo_execution": 0.4,
+          "command_knowledge": 0.2
+        }
+      }
+    }
+  ]
+}
+```
+
+### Progress Tracking Endpoints
+
+#### GET /modules/ros2-fundamentals/progress
+Get the student's progress through the ROS 2 fundamentals module
+
+**Response (200 OK):**
+```json
+{
+  "module_id": "9f3a77e8-5d8e-4d2f-9b5f-8e3f4d2f1b5f",
+  "student_id": "u1a2b3c4-d5e6-f7g8-h9i0-j1k2l3m4n5o6",
+  "progress_percentage": 35,
+  "started_at": "2025-01-20T10:00:00.000Z",
+  "last_accessed_at": "2025-01-22T14:30:00.000Z",
+  "time_spent_seconds": 7200,
+  "week_progress": {
+    "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p": {
+      "progress_percentage": 85,
+      "started_at": "2025-01-20T10:00:00.000Z",
+      "completed_at": "2025-01-22T12:00:00.000Z",
+      "time_spent_seconds": 5400
+    },
+    "2b3c4d5e-6f7g-8h9i-0j1k-2l3m4n5o6p7q": {
+      "progress_percentage": 10,
+      "started_at": "2025-01-22T12:00:00.000Z",
+      "completed_at": null,
+      "time_spent_seconds": 1800
+    }
+  },
+  "section_progress": {
+    "s1a2b3c4-d5e6-f7g8-h9i0-j1k2l3m4n5o6": {
+      "completed": true,
+      "time_spent_seconds": 1200,
+      "notes": "Understood DDS concept well"
+    },
+    "s2b3c4d5-e6f7-g8h9-i0j1-k2l3m4n5o6p7": {
+      "completed": true,
+      "time_spent_seconds": 1500,
+      "notes": "Need to review QoS settings"
+    }
+  },
+  "assessment_scores": {
+    "a1b2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p6": 85
+  },
+  "project_submissions_status": {
+    "p1a2b3c4-d5e6-f7g8-h9i0-j1k2l3m4n5o6": "submitted"
+  }
+}
+```
+
+#### PATCH /modules/ros2-fundamentals/progress
+Update student progress for the ROS 2 fundamentals module
+
+**Request Body:**
+```json
+{
+  "section_id": "s1a2b3c4-d5e6-f7g8-h9i0-j1k2l3m4n5o6",
+  "status": "completed",
+  "time_spent_seconds": 1200,
+  "notes": "Understood DDS concept well"
+}
+```
+
+**Response (200 OK):**
+```json
+{
+  "updated": true,
+  "progress_percentage": 37,
+  "section_progress": {
+    "s1a2b3c4-d5e6-f7g8-h9i0-j1k2l3m4n5o6": {
+      "completed": true,
+      "time_spent_seconds": 1200,
+      "notes": "Understood DDS concept well"
+    }
+  }
+}
+```
+
+### Assessment Endpoints
+
+#### GET /modules/ros2-fundamentals/assessments
+Get all assessments for the ROS 2 fundamentals module
+
+**Response (200 OK):**
+```json
+{
+  "module_id": "9f3a77e8-5d8e-4d2f-9b5f-8e3f4d2f1b5f",
+  "assessments": [
+    {
+      "assessment_id": "a1b2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p6",
+      "module_id": "9f3a77e8-5d8e-4d2f-9b5f-8e3f4d2f1b5f",
+      "week_id": "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p",
+      "title": "Week 1 Assessment: ROS 2 Core Concepts",
+      "description": "MCQs and practical task on ROS 2 architecture and communication",
+      "assessment_type": "combined",
+      "questions_count": 15,
+      "time_limit_minutes": 45,
+      "passing_score_percentage": 70,
+      "created_at": "2025-01-15T08:00:00.000Z"
+    }
+  ]
+}
+```
+
+#### POST /modules/ros2-fundamentals/assessments/{assessment_id}/submit
+Submit answers for an assessment
+
+**Request Body:**
+```json
+{
+  "answers": [
+    {
+      "question_id": "q1a2b3c4-d5e6-f7g8-h9i0-j1k2l3m4n5o6",
+      "response": "ROS 2 uses DDS for communication"
+    },
+    {
+      "question_id": "q2b3c4d5-e6f7-g8h9-i0j1-k2l3m4n5o6p",
+      "response": "2"
+    }
+  ]
+}
+```
+
+**Response (200 OK):**
+```json
+{
+  "assessment_id": "a1b2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p6",
+  "student_id": "u1a2b3c4-d5e6-f7g8-h9i0-j1k2l3m4n5o6",
+  "total_score": 85,
+  "max_score": 100,
+  "passed": true,
+  "started_at": "2025-01-22T14:00:00.000Z",
+  "completed_at": "2025-01-22T14:35:00.000Z",
+  "time_taken_seconds": 2100,
+  "feedback": "Good understanding of ROS 2 concepts, but review QoS configurations."
+}
+```
+
+### AI Tutor Endpoints
+
+#### POST /modules/ros2-fundamentals/ai-tutor/chat
+Send a query to the AI tutor for ROS 2 assistance
+
+**Request Body:**
+```json
+{
+  "query": "I'm getting an error when trying to create a publisher in my ROS 2 node: 'Node not initialized'",
+  "context": {
+    "lab_environment": "week1_foundation",
+    "error_message": "rclpy.exceptions.RCLInvalidROSArgsError: Node not initialized",
+    "code_snippet": "node = rclpy.create_node('publisher_node')\npublisher = node.create_publisher(String, 'topic', 10)",
+    "current_week": 1
+  }
+}
+```
+
+**Response (200 OK):**
+```json
+{
+  "query_id": "qt1a2b3c4-d5e6-f7g8-h9i0-j1k2l3m4n5o6",
+  "module_id": "9f3a77e8-5d8e-4d2f-9b5f-8e3f4d2f1b5f",
+  "student_id": "u1a2b3c4-d5e6-f7g8-h9i0-j1k2l3m4n5o6",
+  "query_text": "I'm getting an error when trying to create a publisher in my ROS 2 node: 'Node not initialized'",
+  "response_text": "The error 'Node not initialized' typically occurs when you try to create a publisher before initializing rclpy. Make sure to call rclpy.init() before creating your node. Here's the correct sequence:\n\n```python\nimport rclpy\nfrom std_msgs.msg import String\n\ndef main():\n    rclpy.init()  # Initialize rclpy first\n    node = rclpy.create_node('publisher_node')\n    publisher = node.create_publisher(String, 'topic', 10)\n    # ... rest of your code\n    rclpy.spin(node)\n    node.destroy_node()\n    rclpy.shutdown()\n\nif __name__ == '__main__':\n    main()\n```",
+  "response_timestamp": "2025-01-22T15:30:00.000Z",
+  "response_confidence": 0.92,
+  "was_helpful": null
+}
+```
+
+#### POST /modules/ros2-fundamentals/ai-tutor/feedback
+Provide feedback on an AI tutor response
+
+**Request Body:**
+```json
+{
+  "query_id": "qt1a2b3c4-d5e6-f7g8-h9i0-j1k2l3m4n5o6",
+  "was_helpful": true,
+  "feedback_rating": 5,
+  "feedback_text": "The explanation was very clear and solved my issue. The code example was perfect."
+}
+```
+
+**Response (200 OK):**
+```json
+{
+  "query_id": "qt1a2b3c4-d5e6-f7g8-h9i0-j1k2l3m4n5o6",
+  "feedback_recorded": true,
+  "updated_confidence": 0.94
+}
+```
+
+### URDF Modeling Endpoints
+
+#### POST /modules/ros2-fundamentals/urdf/models
+Create a new URDF model
+
+**Request Body:**
+```json
+{
+  "name": "Simple Humanoid",
+  "description": "Basic humanoid model with legs, torso, and head",
+  "urdf_content": "<?xml version=\"1.0\"?>\n<robot name=\"simple_humanoid\">\n  <link name=\"base_link\">\n    <visual>\n      <geometry>\n        <box size=\"0.1 0.1 0.1\"/>\n      </geometry>\n    </visual>\n  </link>\n</robot>",
+  "is_shared": false
+}
+```
+
+**Response (201 Created):**
+```json
+{
+  "model_id": "ur1a2b3c4-d5e6-f7g8-h9i0-j1k2l3m4n5o6",
+  "student_id": "u1a2b3c4-d5e6-f7g8-h9i0-j1k2l3m4n5o6",
+  "name": "Simple Humanoid",
+  "description": "Basic humanoid model with legs, torso, and head",
+  "urdf_content": "<?xml version=\"1.0\"?>\n<robot name=\"simple_humanoid\">\n  <link name=\"base_link\">\n    <visual>\n      <geometry>\n        <box size=\"0.1 0.1 0.1\"/>\n      </geometry>\n    </visual>\n  </link>\n</robot>",
+  "created_at": "2025-01-22T16:00:00.000Z",
+  "updated_at": "2025-01-22T16:00:00.000Z",
+  "is_shared": false
+}
+```
+
+#### GET /modules/ros2-fundamentals/urdf/models/{model_id}
+Get a specific URDF model
+
+**Response (200 OK):**
+```json
+{
+  "model_id": "ur1a2b3c4-d5e6-f7g8-h9i0-j1k2l3m4n5o6",
+  "student_id": "u1a2b3c4-d5e6-f7g8-h9i0-j1k2l3m4n5o6",
+  "name": "Simple Humanoid",
+  "description": "Basic humanoid model with legs, torso, and head",
+  "urdf_content": "<?xml version=\"1.0\"?>\n<robot name=\"simple_humanoid\">\n  <link name=\"base_link\">\n    <visual>\n      <geometry>\n        <box size=\"0.1 0.1 0.1\"/>\n      </geometry>\n    </visual>\n  </link>\n</robot>",
+  "created_at": "2025-01-22T16:00:00.000Z",
+  "updated_at": "2025-01-22T16:00:00.000Z",
+  "is_shared": false,
+  "evaluation_score": 85,
+  "evaluation_feedback": "Good basic structure. Consider adding joints for movement."
+}
+```
+
+### Project Submission Endpoints
+
+#### POST /modules/ros2-fundamentals/weeks/{week_id}/projects/{project_id}/submit
+Submit a project for evaluation
+
+**Request Body:**
+```json
+{
+  "submission_content": "This is my implementation of the Week 2 mini-project for creating a ROS 2-based remote robot controller.",
+  "file_attachments": [
+    {
+      "filename": "robot_controller.py",
+      "description": "Main controller node"
+    },
+    {
+      "filename": "CMakeLists.txt",
+      "description": "Build configuration"
+    }
+  ]
+}
+```
+
+**Response (200 OK):**
+```json
+{
+  "submission_id": "ps1a2b3c4-d5e6-f7g8-h9i0-j1k2l3m4n5o6",
+  "student_id": "u1a2b3c4-d5e6-f7g8-h9i0-j1k2l3m4n5o6",
+  "project_id": "p1a2b3c4-d5e6-f7g8-h9i0-j1k2l3m4n5o6",
+  "submission_content": "This is my implementation of the Week 2 mini-project for creating a ROS 2-based remote robot controller.",
+  "file_attachments": [
+    {
+      "filename": "robot_controller.py",
+      "description": "Main controller node",
+      "uploaded_at": "2025-01-22T17:00:00.000Z"
+    },
+    {
+      "filename": "CMakeLists.txt",
+      "description": "Build configuration",
+      "uploaded_at": "2025-01-22T17:00:00.000Z"
+    }
+  ],
+  "submitted_at": "2025-01-22T17:00:00.000Z",
+  "status": "submitted"
+}
+```
+
+## Error Codes Specific to Module 1
+
+In addition to common errors, Module 1 endpoints may return:
+
+### 422 Unprocessable Entity
+For semantic errors in requests:
+```json
+{
+  "error": "semantic_error",
+  "message": "Request is well-formed but contains semantic errors",
+  "details": {
+    "type": "urdf_validation_error",
+    "message": "Invalid URDF structure: missing joint definition"
+  }
+}
+```
+
+### 409 Conflict
+For conflicts during operations:
+```json
+{
+  "error": "conflict",
+  "message": "Request conflicts with current state",
+  "details": {
+    "type": "assessment_already_submitted",
+    "message": "Assessment has already been submitted and graded"
+  }
+}
+```
+
+## Versioning
+
+This API contract follows semantic versioning. Breaking changes will increment the major version number. The current version is 1.0.0.

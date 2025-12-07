@@ -1,0 +1,863 @@
+# API Contract: Frontend Interface for Physical AI & Humanoid Robotics Platform
+
+**Feature**: Frontend Interface for Physical AI & Humanoid Robotics Platform
+**Date**: 2025-12-07
+**Version**: 1.0.0
+
+## Overview
+
+This document defines the API contracts that the frontend interface will use to communicate with backend services for the Physical AI & Humanoid Robotics learning platform. The API provides endpoints for content delivery, user management, progress tracking, quiz systems, and AI tutor integration.
+
+## Base URL
+
+`https://api.physical-ai-robotics-platform.com/v1`
+
+## Authentication
+
+All endpoints (except health check and public content) require authentication using JWT tokens:
+
+```
+Authorization: Bearer {jwt_token}
+```
+
+## Common Headers
+
+````
+Content-Type: application/json
+Accept: application/json
+X-API-Version: 1.0.0
+```
+
+## Common Error Responses
+
+All API endpoints may return the following common error responses:
+
+### 400 Bad Request
+```json
+{
+  "error": "validation_error",
+  "message": "Request data validation failed",
+  "details": {
+    "field": "error_description"
+  }
+}
+```
+
+### 401 Unauthorized
+```json
+{
+  "error": "unauthorized",
+  "message": "Authentication required or token invalid"
+}
+```
+
+### 403 Forbidden
+```json
+{
+  "error": "forbidden",
+  "message": "Insufficient permissions for requested operation"
+}
+```
+
+### 404 Not Found
+```json
+{
+  "error": "not_found",
+  "message": "Requested resource does not exist"
+}
+```
+
+### 500 Internal Server Error
+```json
+{
+  "error": "internal_error",
+  "message": "An unexpected error occurred"
+}
+```
+
+## Content Delivery Endpoints
+
+### GET /modules
+Get all available modules in the Physical AI & Humanoid Robotics curriculum
+
+**Query Parameters**:
+- `published_only` (optional, boolean, default: true): Only return published modules
+- `sort_order` (optional, enum: 'asc', 'desc', default: 'asc'): Sort order for modules
+- `limit` (optional, integer): Number of modules to return
+- `offset` (optional, integer): Number of modules to skip
+
+**Response (200 OK)**:
+```json
+{
+  "modules": [
+    {
+      "id": "mod-intro-phys-ai",
+      "title": "Foundations of Physical AI & Humanoid Robotics",
+      "description": "Introduction to Physical AI concepts and humanoid robotics",
+      "order_index": 0,
+      "duration_weeks": 2,
+      "learning_objectives": [
+        "Understand the meaning of Physical AI",
+        "Learn what embodied intelligence means",
+        "Understand why humanoid robots are important"
+      ],
+      "prerequisites": [],
+      "is_published": true,
+      "created_at": "2025-01-15T08:00:00.000Z",
+      "updated_at": "2025-01-15T08:00:00.000Z",
+      "thumbnail_url": "/images/intro-module-thumb.jpg"
+    }
+  ],
+  "pagination": {
+    "total": 7,
+    "returned": 7,
+    "limit": 20,
+    "offset": 0
+  }
+}
+```
+
+### GET /modules/{moduleId}
+Get detailed information about a specific module
+
+**Response (200 OK)**:
+```json
+{
+  "id": "mod-intro-phys-ai",
+  "title": "Foundations of Physical AI & Humanoid Robotics",
+  "description": "Introduction to Physical AI concepts and humanoid robotics",
+  "order_index": 0,
+  "duration_weeks": 2,
+  "learning_objectives": [
+    "Understand the meaning of Physical AI",
+    "Learn what embodied intelligence means",
+    "Understand why humanoid robots are important"
+  ],
+  "prerequisites": [],
+  "chapters": [
+    {
+      "id": "ch-intro-phys-ai",
+      "title": "Introduction to Physical AI",
+      "description": "Understanding the difference between Digital and Physical AI",
+      "order_index": 1,
+      "duration_minutes": 60,
+      "learning_objectives": [
+        "Define Physical AI",
+        "Distinguish from Digital AI",
+        "Recognize Physical AI applications"
+      ],
+      "content_type": "theory",
+      "is_published": true
+    },
+    {
+      "id": "ch-embodied-intell",
+      "title": "Embodied Intelligence Concepts",
+      "description": "Exploring embodied intelligence in robotics",
+      "order_index": 2,
+      "duration_minutes": 90,
+      "learning_objectives": [
+        "Understand embodied intelligence",
+        "Apply to humanoid robotics",
+        "Evaluate human-centered environments"
+      ],
+      "content_type": "theory",
+      "is_published": true
+    }
+  ],
+  "is_published": true,
+  "created_at": "2025-01-15T08:00:00.000Z",
+  "updated_at": "2025-01-15T08:00:00.000Z",
+  "thumbnail_url": "/images/intro-module-thumb.jpg"
+}
+```
+
+### GET /modules/{moduleId}/chapters
+Get all chapters for a specific module
+
+**Response (200 OK)**:
+```json
+{
+  "moduleId": "mod-intro-phys-ai",
+  "chapters": [
+    {
+      "id": "ch-intro-phys-ai",
+      "title": "Introduction to Physical AI",
+      "description": "Understanding the difference between Digital and Physical AI",
+      "order_index": 1,
+      "duration_minutes": 60,
+      "learning_objectives": [
+        "Define Physical AI",
+        "Distinguish from Digital AI",
+        "Recognize Physical AI applications"
+      ],
+      "content_type": "theory",
+      "is_published": true,
+      "lessons_count": 4
+    }
+  ]
+}
+```
+
+### GET /chapters/{chapterId}
+Get detailed information about a specific chapter including its lessons
+
+**Response (200 OK)**:
+```json
+{
+  "id": "ch-intro-phys-ai",
+  "moduleId": "mod-intro-phys-ai",
+  "title": "Introduction to Physical AI",
+  "description": "Understanding the difference between Digital and Physical AI",
+  "order_index": 1,
+  "duration_minutes": 60,
+  "learning_objectives": [
+    "Define Physical AI",
+    "Distinguish from Digital AI",
+    "Recognize Physical AI applications"
+  ],
+  "content_type": "theory",
+  "lessons": [
+    {
+      "id": "lesson-whatis-phys-ai",
+      "title": "What is Physical AI?",
+      "content": "# What is Physical AI?\n\nPhysical AI extends traditional AI by integrating it with the physical world...",
+      "order_index": 1,
+      "estimated_reading_time_minutes": 15,
+      "is_interactive": false
+    },
+    {
+      "id": "lesson-digital-vs-physical",
+      "title": "Digital vs Physical AI",
+      "content": "# Digital vs Physical AI\n\nTraditional AI operates in digital spaces, while Physical AI operates in and interacts with the real world...",
+      "order_index": 2,
+      "estimated_reading_time_minutes": 20,
+      "is_interactive": true,
+      "interactive_component": {
+        "type": "comparison_table",
+        "props": {
+          "left_column": "Digital AI",
+          "right_column": "Physical AI",
+          "items": [
+            {"title": "Environment", "left": "Digital", "right": "Physical World"},
+            {"title": "Inputs", "left": "Digital data", "right": "Sensors, environment"}
+          ]
+        }
+      }
+    }
+  ],
+  "quizzes": [
+    {
+      "id": "quiz-intro-phys-ai",
+      "title": "Introduction to Physical AI Quiz",
+      "description": "Test your understanding of Physical AI concepts",
+      "questions_count": 10
+    }
+  ],
+  "is_published": true,
+  "created_at": "2025-01-15T08:00:00.000Z",
+  "updated_at": "2025-01-15T08:00:00.000Z"
+}
+```
+
+## User Management Endpoints
+
+### POST /users/register
+Register a new user account
+
+**Request Body**:
+```json
+{
+  "email": "student@example.com",
+  "name": "John Doe",
+  "password": "securePassword123",
+  "programming_experience": "beginner",
+  "ai_ml_background": "basic",
+  "hardware_access": {
+    "rtx_pc": false,
+    "jetson": false,
+    "robot": false
+  },
+  "learning_goals": [
+    "Understand robotics fundamentals",
+    "Learn ROS 2 basics"
+  ]
+}
+```
+
+**Response (201 Created)**:
+```json
+{
+  "user_id": "user-12345-abcde",
+  "email": "student@example.com",
+  "name": "John Doe",
+  "role": "student",
+  "programming_experience": "beginner",
+  "ai_ml_background": "basic",
+  "preferences": {
+    "ui_theme": "dark",
+    "language": "en",
+    "content_language": "en"
+  },
+  "account_created_at": "2025-01-15T08:00:00.000Z",
+  "auth_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+```
+
+### POST /users/login
+Authenticate a user and return a JWT token
+
+**Request Body**:
+```json
+{
+  "email": "student@example.com",
+  "password": "securePassword123"
+}
+```
+
+**Response (200 OK)**:
+```json
+{
+  "user_id": "user-12345-abcde",
+  "email": "student@example.com",
+  "name": "John Doe",
+  "role": "student",
+  "programming_experience": "beginner",
+  "ai_ml_background": "basic",
+  "auth_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "token_expires_at": "2025-01-16T08:00:00.000Z",
+  "preferences": {
+    "ui_theme": "dark",
+    "language": "en",
+    "content_language": "en"
+  }
+}
+```
+
+### GET /users/profile
+Get the authenticated user's profile information
+
+**Response (200 OK)**:
+```json
+{
+  "user_id": "user-12345-abcde",
+  "email": "student@example.com",
+  "name": "John Doe",
+  "role": "student",
+  "programming_experience": "beginner",
+  "ai_ml_background": "basic",
+  "hardware_access": {
+    "rtx_pc": false,
+    "jetson": false,
+    "robot": false
+  },
+  "learning_goals": [
+    "Understand robotics fundamentals",
+    "Learn ROS 2 basics"
+  ],
+  "preferences": {
+    "ui_theme": "dark",
+    "language": "en",
+    "content_language": "en"
+  },
+  "created_at": "2025-01-15T08:00:00.000Z",
+  "updated_at": "2025-01-15T08:00:00.000Z"
+}
+```
+
+### PUT /users/profile
+Update the authenticated user's profile information
+
+**Request Body**:
+```json
+{
+  "programming_experience": "intermediate",
+  "learning_goals": [
+    "Understand robotics fundamentals",
+    "Learn ROS 2 basics",
+    "Build my first robot"
+  ],
+  "preferences": {
+    "ui_theme": "light",
+    "language": "ur",
+    "content_language": "en"
+  }
+}
+```
+
+**Response (200 OK)**:
+```json
+{
+  "success": true,
+  "message": "Profile updated successfully",
+  "updated_profile": {
+    "user_id": "user-12345-abcde",
+    "email": "student@example.com",
+    "name": "John Doe",
+    "programming_experience": "intermediate",
+    "learning_goals": [
+      "Understand robotics fundamentals",
+      "Learn ROS 2 basics",
+      "Build my first robot"
+    ],
+    "preferences": {
+      "ui_theme": "light",
+      "language": "ur",
+      "content_language": "en"
+    }
+  }
+}
+```
+
+## Progress Tracking Endpoints
+
+### GET /users/{userId}/progress
+Get the user's overall progress across all modules
+
+**Response (200 OK)**:
+```json
+{
+  "user_id": "user-12345-abcde",
+  "overall_progress": 25,
+  "time_spent_seconds": 7200,
+  "modules_progress": [
+    {
+      "module_id": "mod-intro-phys-ai",
+      "progress_percentage": 100,
+      "time_spent_seconds": 3600,
+      "completed_chapters": 3,
+      "total_chapters": 3,
+      "quizzes_completed": 2,
+      "quizzes_total": 2,
+      "projects_completed": 1,
+      "projects_total": 1
+    },
+    {
+      "module_id": "mod-ros2-foundations",
+      "progress_percentage": 40,
+      "time_spent_seconds": 3600,
+      "completed_chapters": 2,
+      "total_chapters": 5,
+      "quizzes_completed": 1,
+      "quizzes_total": 3,
+      "projects_completed": 0,
+      "projects_total": 1
+    }
+  ],
+  "last_accessed_at": "2025-01-16T14:30:00.000Z"
+}
+```
+
+### POST /users/{userId}/progress/chapters/{chapterId}
+Update progress for a specific chapter
+
+**Request Body**:
+```json
+{
+  "progress_percentage": 100,
+  "time_spent_seconds": 1800,
+  "completed_lessons": [
+    "lesson-whatis-phys-ai",
+    "lesson-digital-vs-physical"
+  ],
+  "notes": "Found the physical vs digital comparison very insightful"
+}
+```
+
+**Response (200 OK)**:
+```json
+{
+  "success": true,
+  "message": "Chapter progress updated successfully",
+  "chapter_id": "ch-intro-phys-ai",
+  "updated_progress": {
+    "progress_percentage": 100,
+    "time_spent_seconds": 1800,
+    "completed_lessons": [
+      "lesson-whatis-phys-ai",
+      "lesson-digital-vs-physical"
+    ],
+    "notes": "Found the physical vs digital comparison very insightful"
+  }
+}
+```
+
+### GET /users/{userId}/progress/modules/{moduleId}/detailed
+Get detailed progress for a specific module
+
+**Response (200 OK)**:
+```json
+{
+  "module_id": "mod-intro-phys-ai",
+  "user_id": "user-12345-abcde",
+  "module_progress_percentage": 100,
+  "time_spent_seconds": 3600,
+  "chapters_progress": [
+    {
+      "chapter_id": "ch-intro-phys-ai",
+      "title": "Introduction to Physical AI",
+      "progress_percentage": 100,
+      "time_spent_seconds": 1800,
+      "completed_lessons": 2,
+      "total_lessons": 2,
+      "quiz_attempted": true,
+      "quiz_score": 90,
+      "completed_at": "2025-01-16T10:00:00.000Z"
+    }
+  ],
+  "completed_at": "2025-01-16T12:00:00.000Z"
+}
+```
+
+## Quiz System Endpoints
+
+### GET /quizzes/{quizId}
+Get detailed information about a quiz and its questions
+
+**Response (200 OK)**:
+```json
+{
+  "id": "quiz-intro-phys-ai",
+  "chapter_id": "ch-intro-phys-ai",
+  "title": "Introduction to Physical AI Quiz",
+  "description": "Test your understanding of Physical AI concepts",
+  "questions_count": 10,
+  "time_limit_minutes": 20,
+  "passing_score_percentage": 70,
+  "questions": [
+    {
+      "id": "q-phys-ai-def",
+      "question_text": "What is the key difference between Digital AI and Physical AI?",
+      "question_type": "multiple_choice",
+      "options": [
+        "Digital AI operates in the cloud while Physical AI operates on local devices",
+        "Physical AI integrates with the physical world while Digital AI operates in digital spaces",
+        "Physical AI is more intelligent than Digital AI",
+        "There is no difference between them"
+      ],
+      "correct_answer_index": 1
+    }
+  ]
+}
+```
+
+### POST /quizzes/{quizId}/submit
+Submit answers for a quiz
+
+**Request Body**:
+```json
+{
+  "user_id": "user-12345-abcde",
+  "answers": [
+    {
+      "question_id": "q-phys-ai-def",
+      "selected_option_index": 1,
+      "time_taken_ms": 15000
+    }
+  ],
+  "time_taken_ms": 60000
+}
+```
+
+**Response (200 OK)**:
+```json
+{
+  "quiz_id": "quiz-intro-phys-ai",
+  "user_id": "user-12345-abcde",
+  "total_score": 90,
+  "max_score": 100,
+  "percentage": 90,
+  "passed": true,
+  "started_at": "2025-01-16T10:00:00.000Z",
+  "completed_at": "2025-01-16T10:01:00.000Z",
+  "time_taken_ms": 60000,
+  "answers_review": [
+    {
+      "question_id": "q-phys-ai-def",
+      "selected_option_index": 1,
+      "time_taken_ms": 15000,
+      "is_correct": true,
+      "explanation": "Physical AI extends traditional AI by integrating it with the physical world and real environments."
+    }
+  ],
+  "feedback": "Excellent understanding of Physical AI fundamentals!"
+}
+```
+
+## AI Tutor Integration Endpoints
+
+### POST /ai-tutor/chat
+Send a query to the AI tutor for assistance
+
+**Request Body**:
+```json
+{
+  "query": "Can you explain the difference between topics and services in ROS 2?",
+  "context": {
+    "module_id": "mod-ros2-foundations",
+    "chapter_id": "ch-ros2-comm-patterns",
+    "lesson_id": "lesson-topics-services-actions",
+    "user_difficulty_preference": "beginner"
+  },
+  "previous_exchanges": [
+    {
+      "role": "user", 
+      "content": "I'm struggling with ROS 2 concepts"
+    },
+    {
+      "role": "assistant", 
+      "content": "I can help. What specifically would you like to understand?"
+    }
+  ]
+}
+```
+
+**Response (200 OK)**:
+```json
+{
+  "interaction_id": "ia-12345-abcde",
+  "timestamp": "2025-01-16T15:30:00.000Z",
+  "query": "Can you explain the difference between topics and services in ROS 2?",
+  "context": {
+    "module_id": "mod-ros2-foundations",
+    "chapter_id": "ch-ros2-comm-patterns"
+  },
+  "response": {
+    "content": "# Topics vs Services in ROS 2\n\n## Topics (Publish-Subscribe)\n- Asynchronous communication\n- Many-to-many: multiple publishers/subscribers\n- Used for continuous data streams (sensor readings, robot state)\n- Example: camera feeds, IMU data\n\n## Services (Request-Response)\n- Synchronous communication\n- One-to-one: client-server model\n- Used for actions with immediate response needed\n- Example: map lookup, enabling/disabling robot\n\n## When to Use Each:\n- Use topics for continuous data\n- Use services for discrete actions requiring confirmation",
+    "confidence": 0.95,
+    "references": [
+      {
+        "title": "ROS 2 Documentation",
+        "url": "https://docs.ros.org/en/humble/Concepts/About-Topics.html",
+        "relevance_score": 0.85
+      }
+    ]
+  }
+}
+```
+
+### POST /ai-tutor/feedback
+Provide feedback on an AI tutor response
+
+**Request Body**:
+```json
+{
+  "interaction_id": "ia-12345-abcde",
+  "was_helpful": true,
+  "rating": 5,
+  "feedback_text": "This explanation was very clear with good examples"
+}
+```
+
+**Response (200 OK)**:
+```json
+{
+  "success": true,
+  "interaction_id": "ia-12345-abcde",
+  "feedback_recorded": true,
+  "updated_confidence": 0.96
+}
+```
+
+## Project Submission Endpoints
+
+### POST /projects/{projectId}/submit
+Submit a project for evaluation
+
+**Request Body**:
+```json
+{
+  "user_id": "user-12345-abcde",
+  "submission_content": "This is my implementation of the ROS 2 publisher/subscriber node...",
+  "file_attachments": [
+    {
+      "filename": "project_solution.zip",
+      "description": "Complete project implementation files"
+    }
+  ],
+  "reflection": "The project helped me understand the publisher/subscriber pattern. I struggled with QoS settings initially but was able to work through it."
+}
+```
+
+**Response (200 OK)**:
+```json
+{
+  "submission_id": "sub-67890-fghij",
+  "project_id": "proj-ros2-publisher-subscriber",
+  "user_id": "user-12345-abcde",
+  "submitted_at": "2025-01-16T16:00:00.000Z",
+  "status": "submitted",
+  "file_attachments": [
+    {
+      "filename": "project_solution.zip",
+      "file_size_bytes": 2048000,
+      "mime_type": "application/zip",
+      "uploaded_at": "2025-01-16T16:00:00.000Z"
+    }
+  ],
+  "message": "Project submitted successfully. An evaluator will review your submission within 48 hours."
+}
+```
+
+### GET /projects/{projectId}/submissions/{submissionId}
+Get details of a specific project submission
+
+**Response (200 OK)**:
+```json
+{
+  "submission_id": "sub-67890-fghij",
+  "project_id": "proj-ros2-publisher-subscriber",
+  "user_id": "user-12345-abcde",
+  "submitted_at": "2025-01-16T16:00:00.000Z",
+  "evaluated_at": "2025-01-17T10:00:00.000Z",
+  "evaluator_id": "user-evaluator-xyz",
+  "score": 85,
+  "feedback": "Good implementation of the publisher/subscriber pattern. Consider adding more error handling and comments for clarity.",
+  "status": "evaluated",
+  "file_attachments": [
+    {
+      "filename": "project_solution.zip",
+      "file_size_bytes": 2048000,
+      "mime_type": "application/zip",
+      "download_url": "/api/files/download/sub-67890-fghij/project_solution.zip",
+      "uploaded_at": "2025-01-16T16:00:00.000Z"
+    }
+  ],
+  "reflection": "The project helped me understand the publisher/subscriber pattern. I struggled with QoS settings initially but was able to work through it."
+}
+```
+
+## Lab Session Endpoints
+
+### POST /labs/{labId}/session/start
+Start a new lab session
+
+**Request Body**:
+```json
+{
+  "user_id": "user-12345-abcde",
+  "environment_details": {
+    "device_type": "desktop",
+    "os": "Ubuntu 22.04",
+    "browser": "Chrome 120.0",
+    "screen_resolution": "1920x1080"
+  }
+}
+```
+
+**Response (200 OK)**:
+```json
+{
+  "session_id": "sess-111213-nopqr",
+  "lab_id": "lab-ros2-workspace-setup",
+  "user_id": "user-12345-abcde",
+  "started_at": "2025-01-16T17:00:00.000Z",
+  "status": "active",
+  "session_token": "session-token-xyz-789",
+  "environment_details": {
+    "device_type": "desktop",
+    "os": "Ubuntu 22.04",
+    "browser": "Chrome 120.0",
+    "screen_resolution": "1920x1080"
+  },
+  "instructions": "# ROS 2 Workspace Setup Lab\n\n## Objective\nSet up your first ROS 2 workspace...\n\n## Steps\n1. Create workspace directory\n2. Initialize workspace\n3. Build workspace..."
+}
+```
+
+### POST /labs/{labId}/session/{sessionId}/events
+Log events during a lab session (code submissions, errors, etc.)
+
+**Request Body**:
+```json
+{
+  "event_type": "code_submission",
+  "event_data": {
+    "exercise_id": "ex-create-publisher",
+    "code": "import rclpy\nfrom rclpy.node import Node\nfrom std_msgs.msg import String\nclass MinimalPublisher(Node):\n    def __init__(self):\n        super().__init__('minimal_publisher')",
+    "result": "success",
+    "execution_output": "Node created successfully",
+    "timestamp": "2025-01-16T17:15:00.000Z"
+  }
+}
+```
+
+**Response (200 OK)**:
+```json
+{
+  "event_logged": true,
+  "event_id": "evt-999888-stuvw",
+  "session_id": "sess-111213-nopqr",
+  "timestamp": "2025-01-16T17:15:00.000Z",
+  "message": "Event logged successfully"
+}
+```
+
+### POST /labs/{labId}/session/{sessionId}/complete
+Complete a lab session
+
+**Request Body**:
+```json
+{
+  "completion_status": "completed",
+  "summary": {
+    "exercises_completed": 4,
+    "exercises_total": 5,
+    "time_spent_seconds": 3600,
+    "errors_encountered": 3,
+    "help_requests": 2
+  }
+}
+```
+
+**Response (200 OK)**:
+```json
+{
+  "success": true,
+  "session_id": "sess-111213-nopqr",
+  "lab_id": "lab-ros2-workspace-setup",
+  "completion_status": "completed",
+  "completed_at": "2025-01-16T18:00:00.000Z",
+  "summary": {
+    "exercises_completed": 4,
+    "exercises_total": 5,
+    "time_spent_seconds": 3600,
+    "errors_encountered": 3,
+    "help_requests": 2
+  },
+  "certificate_url": "/certificates/lab-completion-111213.pdf",
+  "message": "Lab session completed successfully!"
+}
+```
+
+## Error Codes Specific to Frontend Interface
+
+In addition to common errors, frontend-specific endpoints may return:
+
+### 422 Unprocessable Entity
+For semantic errors in requests:
+```json
+{
+  "error": "semantic_error",
+  "message": "Request is well-formed but contains semantic errors",
+  "details": {
+    "type": "content_language_unavailable",
+    "message": "Content not available in requested language"
+  }
+}
+```
+
+### 409 Conflict
+For conflicts during operations:
+```json
+{
+  "error": "conflict",
+  "message": "Request conflicts with current state",
+  "details": {
+    "type": "submission_already_evaluated",
+    "message": "Project submission has already been evaluated"
+  }
+}
+```
+
+## Versioning
+
+This API contract follows semantic versioning. Breaking changes will increment the major version number. The current version is 1.0.0.

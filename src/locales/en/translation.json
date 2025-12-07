@@ -1,0 +1,48 @@
+{
+  "common": {
+    "welcome": "Welcome to Physical AI & Humanoid Robotics Textbook",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "save": "Save",
+    "cancel": "Cancel",
+    "next": "Next",
+    "previous": "Previous"
+  },
+  "navigation": {
+    "home": "Home",
+    "textbook": "Textbook",
+    "modules": "Modules",
+    "dashboard": "Dashboard",
+    "login": "Login",
+    "logout": "Logout",
+    "register": "Register"
+  },
+  "simulations": {
+    "title": "Interactive Simulations",
+    "play": "Play",
+    "pause": "Pause",
+    "reset": "Reset",
+    "loadingSimulation": "Loading simulation..."
+  },
+  "exercises": {
+    "title": "Exercises",
+    "checkAnswer": "Check Answer",
+    "submit": "Submit",
+    "completed": "Completed",
+    "grade": "Grade"
+  },
+  "aiTutor": {
+    "title": "AI Tutor",
+    "askQuestion": "Ask a question...",
+    "send": "Send",
+    "rateResponse": "Rate this response"
+  },
+  "progress": {
+    "title": "Progress",
+    "completed": "Completed",
+    "inProgress": "In Progress",
+    "notStarted": "Not Started",
+    "overallProgress": "Overall Progress"
+  }
+}
