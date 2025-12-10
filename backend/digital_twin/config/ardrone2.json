@@ -1,0 +1,96 @@
+{
+  "robot_name": "ardrone2",
+  "model_type": "quadcopter",
+  "base_type": "ardrone",
+  "version": "2.0",
+  "sensors": {
+    "imu": {
+      "enabled": true,
+      "type": "imu_sensor",
+      "topic": "/ardrone/imu",
+      "frame_id": "ardrone_base_imu_link",
+      "update_rate": 200.0
+    },
+    "camera": {
+      "enabled": true,
+      "type": "ardrone_camera",
+      "topic": "/ardrone/image_raw",
+      "frame_id": "ardrone_base_bottomcam_frame",
+      "update_rate": 30.0,
+      "width": 640,
+      "height": 360,
+      "format": "R8G8B8"
+    },
+    "sonar": {
+      "enabled": true,
+      "type": "sonar_sensor",
+      "topic": "/ardrone/altitude_changed",
+      "frame_id": "ardrone_base_altitude_link",
+      "update_rate": 50.0,
+      "range_min": 0.0,
+      "range_max": 5.0
+    },
+    "gps": {
+      "enabled": true,
+      "type": "gps_sensor",
+      "topic": "/ardrone/gps",
+      "frame_id": "ardrone_base_gps_link",
+      "update_rate": 10.0
+    },
+    "magnetometer": {
+      "enabled": true,
+      "type": "magnetometer",
+      "topic": "/ardrone/mag",
+      "frame_id": "ardrone_base_imu_link",
+      "update_rate": 50.0
+    }
+  },
+  "flight_system": {
+    "type": "quadcopter",
+    "rotor_config": {
+      "rotor_names": [
+        "rotor_0",
+        "rotor_1", 
+        "rotor_2",
+        "rotor_3"
+      ],
+      "rotor_positions": [
+        [0.16, 0.16, 0],
+        [-0.16, 0.16, 0],
+        [-0.16, -0.16, 0],
+        [0.16, -0.16, 0]
+      ],
+      "rotor_directions": ["cw", "ccw", "cw", "ccw"]
+    },
+    "max_thrust": 5.0,
+    "thrust_coefficient": 0.05,
+    "torque_coefficient": 0.01
+  },
+  "physical_properties": {
+    "mass": 0.42,
+    "linear_damping": 0.05,
+    "angular_damping": 0.05,
+    "friction_coefficient": 0.01,
+    "inertia": {
+      "ixx": 0.001,
+      "iyy": 0.001,
+      "izz": 0.002
+    }
+  },
+  "simulation": {
+    "real_time_factor": 1.0,
+    "max_step_size": 0.001,
+    "paused": false
+  },
+  "ros_parameters": {
+    "cmd_vel_topic": "/cmd_vel",
+    "navdata_topic": "/ardrone/navdata",
+    "takeoff_topic": "/ardrone/takeoff",
+    "land_topic": "/ardrone/land",
+    "reset_topic": "/ardrone/reset",
+    "tf_prefix": "",
+    "publish_tf": true,
+    "base_frame": "ardrone_base_link",
+    "odom_frame": "odom"
+  }
+}

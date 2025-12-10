@@ -1,0 +1,24 @@
+{
+  "name": "ai-robot-brain",
+  "version": "1.0.0",
+  "description": "AI-Robot Brain implementation using NVIDIA Isaac ecosystem",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nvidia",
+    "isaac",
+    "ai",
+    "robotics",
+    "simulation",
+    "perception",
+    "vslam",
+    "navigation"
+  ],
+  "author": "AI-Native Book Team",
+  "license": "MIT"
+}

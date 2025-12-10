@@ -1,0 +1,81 @@
+{
+  "robot_name": "husky",
+  "model_type": "skid_steer_drive",
+  "base_type": "husky",
+  "version": "standard",
+  "sensors": {
+    "lidar": {
+      "enabled": true,
+      "type": "velodyne_vlp16",
+      "topic": "/velodyne_points",
+      "frame_id": "velodyne",
+      "range_min": 0.9,
+      "range_max": 130.0,
+      "update_rate": 20.0,
+      "samples": 1800
+    },
+    "depth_camera": {
+      "enabled": true,
+      "type": "intel_realsense",
+      "topic": "/camera/depth/image_raw",
+      "frame_id": "camera_depth_frame",
+      "update_rate": 30.0,
+      "width": 1280,
+      "height": 720,
+      "format": "R8G8B8"
+    },
+    "imu": {
+      "enabled": true,
+      "type": "microstrain_imu",
+      "topic": "/imu/data",
+      "frame_id": "imu_link",
+      "update_rate": 100.0
+    },
+    "gps": {
+      "enabled": true,
+      "type": "novatel_span",
+      "topic": "/navsat/fix",
+      "frame_id": "gps_link",
+      "update_rate": 10.0
+    },
+    "camera": {
+      "enabled": true,
+      "type": "grasshopper_camera",
+      "topic": "/camera/left/image_raw",
+      "frame_id": "camera_left_frame",
+      "update_rate": 30.0,
+      "width": 1920,
+      "height": 1200,
+      "format": "R8G8B8"
+    }
+  },
+  "drive_system": {
+    "type": "skid_steer_drive",
+    "track_width": 1.219,
+    "wheel_radius": 0.1651,
+    "encoder_resolution": 4096,
+    "max_linear_velocity": 1.0,
+    "max_angular_velocity": 0.5
+  },
+  "physical_properties": {
+    "mass": 42.5,
+    "linear_damping": 0.2,
+    "angular_damping": 0.3,
+    "friction_coefficient": 0.8,
+    "max_steer_angle": 0.7
+  },
+  "simulation": {
+    "real_time_factor": 1.0,
+    "max_step_size": 0.001,
+    "paused": false
+  },
+  "ros_parameters": {
+    "cmd_vel_topic": "/cmd_vel",
+    "odom_topic": "/odometry/filtered",
+    "tf_prefix": "",
+    "publish_odom": true,
+    "publish_tf": true,
+    "odom_frame": "odom",
+    "base_frame": "base_link"
+  }
+}

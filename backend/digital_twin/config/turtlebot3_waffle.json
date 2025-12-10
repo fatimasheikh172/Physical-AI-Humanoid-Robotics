@@ -1,0 +1,74 @@
+{
+  "robot_name": "turtlebot3_waffle",
+  "model_type": "differential_drive",
+  "base_type": "turtlebot3",
+  "version": "waffle",
+  "sensors": {
+    "lidar": {
+      "enabled": true,
+      "type": "hlds_lidar",
+      "topic": "/scan",
+      "frame_id": "base_scan",
+      "range_min": 0.1,
+      "range_max": 30.0,
+      "update_rate": 5.5,
+      "samples": 360
+    },
+    "depth_camera": {
+      "enabled": true,
+      "type": "kinect",
+      "topic": "/camera/depth/image_raw",
+      "frame_id": "camera_depth_frame",
+      "update_rate": 30.0,
+      "width": 640,
+      "height": 480,
+      "format": "R8G8B8"
+    },
+    "imu": {
+      "enabled": true,
+      "type": "imu_sensor",
+      "topic": "/imu",
+      "frame_id": "imu_link",
+      "update_rate": 50.0
+    },
+    "camera": {
+      "enabled": true,
+      "type": "camera",
+      "topic": "/camera/rgb/image_raw",
+      "frame_id": "camera_rgb_frame",
+      "update_rate": 30.0,
+      "width": 640,
+      "height": 480,
+      "format": "R8G8B8"
+    }
+  },
+  "drive_system": {
+    "type": "differential_drive",
+    "wheel_separation": 0.287,
+    "wheel_radius": 0.033,
+    "encoder_resolution": 4096,
+    "max_linear_velocity": 0.5,
+    "max_angular_velocity": 1.0
+  },
+  "physical_properties": {
+    "mass": 2.769,
+    "linear_damping": 0.9,
+    "angular_damping": 1.0,
+    "friction_coefficient": 0.5,
+    "max_steer_angle": 0.5
+  },
+  "simulation": {
+    "real_time_factor": 1.0,
+    "max_step_size": 0.001,
+    "paused": false
+  },
+  "ros_parameters": {
+    "cmd_vel_topic": "/cmd_vel",
+    "odom_topic": "/odom",
+    "tf_prefix": "",
+    "publish_odom": true,
+    "publish_tf": true,
+    "odom_frame": "odom",
+    "base_frame": "base_footprint"
+  }
+}

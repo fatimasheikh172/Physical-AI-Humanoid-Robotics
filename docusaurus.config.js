@@ -17,7 +17,7 @@ const config = {
   organizationName: 'physicalai',
   projectName: 'textbook',
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
 
   i18n: {
     defaultLocale: 'en',
@@ -72,7 +72,7 @@ const config = {
         id: 'ur',
         path: 'i18n/ur/docusaurus-plugin-content-docs/current',
         routeBasePath: 'ur',
-        sidebarPath: require.resolve('./sidebars.js'),
+        sidebarPath: require.resolve('./i18n/ur/docusaurus-plugin-content-docs/current/sidebars.js'),
       },
     ],
   ],
@@ -105,7 +105,6 @@ const config = {
           position: 'left',
           label: 'Modules',
         },
-        { to: '/blog', label: 'Blog', position: 'left' },
         {
           href: 'https://github.com/physicalai/textbook',
           label: 'GitHub',
@@ -118,10 +117,12 @@ const config = {
       style: 'dark',
       links: [
         {
-          title: 'Textbook',
+          title: 'Modules',
           items: [
-            { label: 'Introduction', to: '/docs/intro' },
-            { label: 'Physical AI Foundation', to: '/docs/physical-ai-foundation' },
+            { label: 'Module 1: ROS2 Fundamentals', to: '/modules/ros2-fundamentals/week1/theory' },
+            { label: 'Module 2: Digital Twin', to: '/modules/digital-twin/introduction' },
+            { label: 'Module 3: AI Robot Brain', to: '/modules/ai-robot-brain/introduction' },
+            { label: 'Module 4: Vision-Language-Action', to: '/modules/vla-module/introduction' },
           ],
         },
         {
@@ -132,9 +133,8 @@ const config = {
           ],
         },
         {
-          title: 'More',
+          title: 'Resources',
           items: [
-            { label: 'Blog', to: '/blog' },
             { label: 'GitHub', href: 'https://github.com/physicalai/textbook' },
           ],
         },

@@ -1,0 +1,14 @@
+# General Python dependencies
+numpy
+pyyaml
+requests
+
+# For HTTP APIs and web services
+flask
+fastapi
+uvicorn
+
+# For testing
+pytest
+pytest-asyncio
+pytest-cov

@@ -13,6 +13,7 @@ This quickstart guide will help you get the AI-Native Textbook System up and run
 Before starting, ensure you have the following installed:
 
 ### System Requirements
+
 - **Operating System**: Linux, macOS, or Windows with WSL2
 - **Node.js**: v18.x or higher
 - **Python**: v3.11 or higher
@@ -20,6 +21,7 @@ Before starting, ensure you have the following installed:
 - **Git**: v2.30 or higher
 
 ### External Services (for full functionality)
+
 - **Qdrant Cloud**: Vector database for RAG system (free tier available)
 - **Neon Postgres**: Serverless Postgres database (free tier available)
 - **OpenAI API Key**: For AI tutoring capabilities
@@ -74,25 +76,30 @@ yarn install
 
 Create `.env` files for both backend and frontend:
 
-#### Backend `.env` file:
-```
+#### Backend `.env` file
+
 # Database
+
 DATABASE_URL=postgresql://username:password@localhost:5432/ai_textbook
 
 # Qdrant Vector Database
+
 QDRANT_URL=https://your-cluster-url.qdrant.io
 QDRANT_API_KEY=your-api-key
 QDRANT_COLLECTION_NAME=textbook_content
 
 # OpenAI
+
 OPENAI_API_KEY=your-openai-api-key
 
 # Authentication
+
 SECRET_KEY=your-secret-key-here-make-it-long-and-random
 ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=30
 
 # Application
+
 API_PREFIX=/api
 DEBUG=true
 ```

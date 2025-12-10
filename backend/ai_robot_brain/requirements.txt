@@ -1,0 +1,51 @@
+# Python dependencies for AI-Robot Brain (Isaac Sim/ROS Integration)
+
+# Core ROS 2 dependencies
+rclpy>=3.0.0
+rosgraph>=1.16.0
+std_msgs>=4.0.0
+sensor_msgs>=4.0.0
+geometry_msgs>=4.0.0
+nav_msgs>=4.0.0
+tf2_ros>=0.22.0
+cv_bridge>=3.0.0
+
+# Isaac Sim dependencies
+omni-isaac-gym-envs>=2.0.0
+omni-isaac-core>=2.3.0
+pxr-usd>=22.3
+
+# Machine Learning
+torch>=2.0.0
+torchvision>=0.15.0
+numpy>=1.21.0
+scipy>=1.9.0
+opencv-python>=4.6.0
+tensorrt>=8.6.0
+open3d>=0.17.0
+
+# Visualization and Graphics
+matplotlib>=3.6.0
+plotly>=5.11.0
+pygame>=2.1.0
+
+# Development and Utilities
+pytest>=7.2.0
+pytest-cov>=4.0.0
+black>=23.0.0
+flake8>=6.0.0
+yapf>=0.32.0
+jupyter>=1.0.0
+pandas>=1.5.0
+scikit-image>=0.19.0
+scikit-learn>=1.1.0
+
+# Configuration and Data Processing
+pyyaml>=6.0
+jsonschema>=4.17.0
+tqdm>=4.64.0
+h5py>=3.7.0
+
+# ROS 2 Specific Tools
+ros2cli>=0.18.0
+launch_ros>=0.19.0

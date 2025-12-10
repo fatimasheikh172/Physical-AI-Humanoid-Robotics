@@ -1,0 +1,40 @@
+{
+  "digital_twin_config": {
+    "active_robot": "turtlebot3_waffle",
+    "available_robots": [
+      "turtlebot3_waffle",
+      "husky", 
+      "kinova_jaco2_7dof",
+      "ardrone2"
+    ],
+    "simulation_settings": {
+      "real_time_factor": 1.0,
+      "max_step_size": 0.001,
+      "paused": false,
+      "world_file": "default_world.world"
+    },
+    "ros_settings": {
+      "domain_id": 0,
+      "node_name_prefix": "digital_twin",
+      "use_sim_time": true
+    },
+    "perception_settings": {
+      "enable_obstacle_detection": true,
+      "enable_mapping": true,
+      "enable_localization": true,
+      "processing_frequency": 10.0
+    },
+    "visualization_settings": {
+      "enable_unity_bridge": true,
+      "unity_ip_address": "127.0.0.1",
+      "unity_port": 10000,
+      "visualization_frequency": 30.0
+    },
+    "logging_settings": {
+      "log_level": "INFO",
+      "log_directory": "./logs",
+      "enable_file_logging": true,
+      "enable_console_logging": true
+    }
+  }
+}

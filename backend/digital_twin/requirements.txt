@@ -1,0 +1,32 @@
+# Python dependencies for Digital Twin System
+
+# Core ROS 2 dependencies
+rclpy>=3.0.0
+rosgraph>=1.16.0
+std_msgs>=4.0.0
+sensor_msgs>=4.0.0
+geometry_msgs>=4.0.0
+nav_msgs>=4.0.0
+tf2_ros>=0.22.0
+cv_bridge>=3.0.0
+gazebo_msgs>=3.0.0
+
+# Machine Learning and Scientific Computing
+numpy>=1.21.0
+scipy>=1.9.0
+opencv-python>=4.6.0
+open3d>=0.17.0
+transforms3d>=0.4.1
+
+# Visualization and Graphics
+matplotlib>=3.6.0
+plotly>=5.11.0
+
+# Configuration and Data Processing
+pyyaml>=6.0
+jsonschema>=4.17.0
+
+# Development and Utilities
+pytest>=7.2.0
+pytest-cov>=4.0.0
+pytest-asyncio>=0.21.0

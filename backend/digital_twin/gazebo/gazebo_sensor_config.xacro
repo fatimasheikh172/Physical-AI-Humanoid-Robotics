@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- Configuration parameters for digital twin sensors -->
+
+  <!-- LiDAR Configuration -->
+  <xacro:property name="lidar_range_min" value="0.1" />
+  <xacro:property name="lidar_range_max" value="10.0" />
+  <xacro:property name="lidar_samples" value="360" />
+  <xacro:property name="lidar_resolution" value="1.0" />
+  <xacro:property name="lidar_min_angle" value="${-pi}" />
+  <xacro:property name="lidar_max_angle" value="${pi}" />
+  <xacro:property name="lidar_update_rate" value="10.0" />
+
+  <!-- Depth Camera Configuration -->
+  <xacro:property name="depth_cam_horizontal_fov" value="1.047" /> <!-- 60 degrees -->
+  <xacro:property name="depth_cam_width" value="640" />
+  <xacro:property name="depth_cam_height" value="480" />
+  <xacro:property name="depth_cam_format" value="R8G8B8" />
+  <xacro:property name="depth_cam_near" value="0.1" />
+  <xacro:property name="depth_cam_far" value="10.0" />
+  <xacro:property name="depth_cam_update_rate" value="10.0" />
+  <xacro:property name="depth_cam_noise_mean" value="0.0" />
+  <xacro:property name="depth_cam_noise_stddev" value="0.05" />
+
+  <!-- IMU Configuration -->
+  <xacro:property name="imu_update_rate" value="100.0" />
+  <xacro:property name="imu_angular_velocity_noise" value="2e-4" />
+  <xacro:property name="imu_linear_acceleration_noise" value="1.7e-2" />
+  <xacro:property name="imu_gaussian_noise" value="0.001" />
+
+  <!-- Robot Configuration -->
+  <xacro:property name="robot_name" value="digital_twin_robot" />
+  <xacro:property name="robot_namespace" value="/robot" />
+  
+  <!-- Wheel Configuration -->
+  <xacro:property name="wheel_damping" value="0.5" />
+  <xacro:property name="wheel_friction" value="0.1" />
+  
+  <!-- Physics Configuration -->
+  <xacro:property name="gravity_x" value="0" />
+  <xacro:property name="gravity_y" value="0" />
+  <xacro:property name="gravity_z" value="-9.8" />
+  <xacro:property name="max_step_size" value="0.001" />
+  <xacro:property name="real_time_factor" value="1.0" />
+  <xacro:property name="real_time_update_rate" value="1000.0" />
+
+</robot>

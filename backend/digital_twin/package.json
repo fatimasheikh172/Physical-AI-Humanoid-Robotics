@@ -1,0 +1,22 @@
+{
+  "name": "ai-native-digital-twin",
+  "version": "1.0.0",
+  "description": "Digital twin implementation for robotic systems using Gazebo and Unity",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "robotics",
+    "digital-twin",
+    "gazebo",
+    "unity",
+    "ros2",
+    "perception"
+  ],
+  "author": "AI Native Book Team",
+  "license": "MIT"
+}

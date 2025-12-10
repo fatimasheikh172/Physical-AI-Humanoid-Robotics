@@ -1,9 +1,9 @@
 ---
 sidebar_label: 'Overview'
 title: 'Overview of Physical AI & Humanoid Robotics'
----
 
-# Overview of Physical AI & Humanoid Robotics
+---
+### Overview of Physical AI & Humanoid Robotics
 
 Physical AI represents a paradigm shift in artificial intelligence research, focusing on systems that interact with the physical world through robotic embodiments. This textbook explores the intersection of artificial intelligence, robotics, and embodied cognition, providing both theoretical foundations and practical implementation strategies for creating intelligent physical agents.
 

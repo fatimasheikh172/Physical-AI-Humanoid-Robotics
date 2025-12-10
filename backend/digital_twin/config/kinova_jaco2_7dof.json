@@ -1,0 +1,83 @@
+{
+  "robot_name": "kinova_jaco2_7dof",
+  "model_type": "manipulator",
+  "base_type": "kinova",
+  "version": "jaco2_7dof",
+  "sensors": {
+    "joint_state": {
+      "enabled": true,
+      "type": "joint_state_sensor",
+      "topic": "/j2n6s300/joint_states",
+      "update_rate": 100.0
+    },
+    "imu": {
+      "enabled": true,
+      "type": "imu_sensor",
+      "topic": "/j2n6s300/imu",
+      "frame_id": "base_link",
+      "update_rate": 100.0
+    },
+    "camera": {
+      "enabled": true,
+      "type": "realsense_camera",
+      "topic": "/camera/color/image_raw",
+      "frame_id": "camera_color_frame",
+      "update_rate": 30.0,
+      "width": 640,
+      "height": 480,
+      "format": "R8G8B8"
+    },
+    "force_torque": {
+      "enabled": true,
+      "type": "force_torque_sensor",
+      "topic": "/j2n6s300/force_torque_sensor",
+      "frame_id": "end_effector_link",
+      "update_rate": 100.0
+    }
+  },
+  "manipulator": {
+    "type": "7dof_arm",
+    "joint_names": [
+      "j2n6s300_joint_1",
+      "j2n6s300_joint_2", 
+      "j2n6s300_joint_3",
+      "j2n6s300_joint_4",
+      "j2n6s300_joint_5",
+      "j2n6s300_joint_6"
+    ],
+    "joint_limits": {
+      "position": {
+        "min": [-3.14, -3.14, -3.14, -3.14, -3.14, -3.14],
+        "max": [3.14, 3.14, 3.14, 3.14, 3.14, 3.14]
+      },
+      "velocity": {
+        "max": [1.57, 1.57, 1.57, 1.57, 1.57, 1.57]
+      },
+      "effort": {
+        "max": [15.0, 15.0, 15.0, 15.0, 15.0, 15.0]
+      }
+    },
+    "end_effector_frame": "end_effector_link",
+    "base_frame": "root"
+  },
+  "physical_properties": {
+    "mass": 18.0,
+    "linear_damping": 0.1,
+    "angular_damping": 0.1,
+    "friction_coefficient": 0.1
+  },
+  "simulation": {
+    "real_time_factor": 1.0,
+    "max_step_size": 0.001,
+    "paused": false
+  },
+  "ros_parameters": {
+    "joint_trajectory_topic": "/j2n6s300/effort_joint_trajectory_controller/follow_joint_trajectory",
+    "command_topic": "/j2n6s300/joint_trajectory_action/command",
+    "feedback_topic": "/j2n6s300/joint_trajectory_action/feedback",
+    "tf_prefix": "",
+    "publish_tf": true,
+    "base_frame": "root",
+    "end_effector_frame": "end_effector_link"
+  }
+}

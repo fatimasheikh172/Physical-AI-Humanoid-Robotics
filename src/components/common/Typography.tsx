@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { JSX } from 'react';
 import clsx from 'clsx';
 
 interface HeadingProps {
@@ -9,7 +9,7 @@ interface HeadingProps {
 }
 
 const Heading: React.FC<HeadingProps> = ({ children, level, className = '', id }) => {
-  const HeadingTag = `h${level}` as keyof JSX.IntrinsicElements;
+  const HeadingTag: React.ElementType = `h${level}`;
   
   const headingClasses = clsx(
     'font-bold mb-4 mt-6 first:mt-0',

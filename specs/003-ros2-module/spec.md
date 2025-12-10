@@ -8,6 +8,7 @@
 MODULE DURATION: 3 Weeks (Weeks 3–5 of the Quarter)
 
 MODULE GOAL: By the end of this module, the student must be able to:
+
 - Understand ROS 2 architecture
 - Build custom ROS 2 nodes using Python
 - Establish communication using topics, services, and actions

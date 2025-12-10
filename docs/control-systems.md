@@ -3,7 +3,7 @@ sidebar_label: 'Control Systems'
 title: 'Control Systems for Physical AI'
 ---
 
-# Control Systems for Physical AI
+### Control Systems for Physical AI
 
 Control systems are fundamental to Physical AI, as they enable robots to interact with the physical world effectively. This chapter explores different control approaches for physical systems, with emphasis on humanoid robotics applications.
 
@@ -25,17 +25,13 @@ Robot control systems translate high-level goals (e.g., "walk forward") into low
 
 Open-loop control systems execute predefined commands without feedback from sensors. While simple, these systems are sensitive to errors and disturbances.
 
-```
 Command → Controller → Actuator → Robot → Environment
-```
 
 ### Closed-Loop Control (Feedback Control)
 
 Closed-loop systems use sensor feedback to adjust commands, making them more robust to disturbances and model errors.
 
-```
 Command → Controller → Actuator → Robot → Environment → Sensor → Feedback → Controller
-```
 
 ## Classical Control Approaches
 
@@ -43,11 +39,10 @@ Command → Controller → Actuator → Robot → Environment → Sensor → Fee
 
 PID controllers are widely used in robotics for their simplicity and effectiveness:
 
-```
-u(t) = Kp * e(t) + Ki * ∫e(t)dt + Kd * de(t)/dt
-```
+u(t) = Kp *e(t) + Ki* ∫e(t)dt + Kd * de(t)/dt
 
 Where:
+
 - Kp is the proportional gain
 - Ki is the integral gain
 - Kd is the derivative gain

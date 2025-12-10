@@ -3,13 +3,14 @@ sidebar_label: 'Physical AI Foundation'
 title: 'Physical AI Foundation'
 ---
 
-# Physical AI Foundation
+## Physical AI Foundation
 
 Physical AI represents the convergence of artificial intelligence with the physical world. It encompasses systems that perceive, reason, and act in physical environments, combining machine learning, robotics, and embodied cognition.
 
 ## Core Principles of Physical AI
 
 ### 1. Embodied Cognition
+
 Embodied cognition is the theory that cognitive processes are deeply rooted in the body's interactions with the world. In Physical AI:
 
 - Intelligence emerges from the interaction between the agent and its environment
@@ -17,6 +18,7 @@ Embodied cognition is the theory that cognitive processes are deeply rooted in t
 - Sensorimotor experiences are fundamental to understanding
 
 ### 2. Real-time Processing
+
 Physical systems operate under real-time constraints:
 
 - Perception and action must occur within time deadlines
@@ -24,6 +26,7 @@ Physical systems operate under real-time constraints:
 - Delays in response can have physical consequences
 
 ### 3. Uncertainty Management
+
 The physical world is inherently uncertain:
 
 - Sensor data is noisy and incomplete
@@ -33,6 +36,7 @@ The physical world is inherently uncertain:
 ## Key Components
 
 ### Perception Systems
+
 Physical AI systems must understand their environment through various sensing modalities:
 
 - Vision systems (cameras, depth sensors)
@@ -41,6 +45,7 @@ Physical AI systems must understand their environment through various sensing mo
 - Multi-sensory integration
 
 ### Control Systems
+
 Physical agents need to translate high-level goals into motor commands:
 
 - Planning and trajectory generation
@@ -49,6 +54,7 @@ Physical agents need to translate high-level goals into motor commands:
 - Safety-critical control systems
 
 ### Learning Systems
+
 Physical AI agents must adapt to their environments:
 
 - Reinforcement learning for control policy optimization

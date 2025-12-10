@@ -1,12 +1,12 @@
 import React, { JSX, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Layout from '@site/src/components/common/Layout';
 import ChapterNavigationSidebar from '@site/src/components/common/ChapterNavigationSidebar';
 import { Chapter } from '@site/src/types/Chapter';
 import { Progress } from '@site/src/types/Progress';
 import { Heading, Paragraph, CodeBlock, InlineCode, Blockquote } from '@site/src/components/common/Typography';
-// Ensure the correct path to AITutor component
-import AITutor from '@site/frontend/src/components/ai-tutor/AITutor'; // Verify this path or create the file if missing
-import { } from 'react-router-dom';
+// // Ensure the correct path to AITutor component
+// import AITutor from '@site/src/components/ai-tutor/AITutor'; // Verify this path or create the file if missing (currently commented out)
 import LoadingError from '@site/src/components/common/LoadingError';
 
 const ChapterPage: React.FC = () => {
@@ -239,18 +239,12 @@ const ChapterPage: React.FC = () => {
           </button>
         </footer>
       </div>
-      
-      <div className="fixed top-1/2 right-4 transform -translate-y-1/2 z-10">
+
+      {/* <div className="fixed top-1/2 right-4 transform -translate-y-1/2 z-10">
         <AITutor context={JSON.stringify({ chapterId: chapter.id, chapterTitle: chapter.title })} />
-      </div>
+      </div> */}
     </Layout>
   );
 };
 
 export default ChapterPage;
-
-
-function useParams<T>(): { slug: any; } {
-  throw new Error('Function not implemented.');
-}
-// Removed the conflicting local useParams function
