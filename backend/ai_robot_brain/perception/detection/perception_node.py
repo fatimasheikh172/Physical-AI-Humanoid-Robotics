@@ -5,16 +5,13 @@ Perception Node for Isaac Sim
 Processes sensor data and runs hardware-accelerated perception algorithms
 """
 
-import rclpy
-from rclpy.node import Node
-from sensor_msgs.msg import Image, CameraInfo, PointCloud2, Imu
-from geometry_msgs.msg import PoseStamped
-from std_msgs.msg import String
-from visualization_msgs.msg import Marker, MarkerArray
-import numpy as np
-import cv2
-from cv_bridge import CvBridge
-import torch  # Placeholder for PyTorch (would use Isaac ROS Perception nodes in actual implementation)
+import rclpy # type: ignore
+from rclpy.node import Node # type: ignore
+from sensor_msgs.msg import Image, CameraInfo # type: ignore
+from std_msgs.msg import String # type: ignore
+from visualization_msgs.msg import Marker, MarkerArray # type: ignore
+import numpy as np # type: ignore
+from cv_bridge import CvBridge # type: ignore
 
 
 class IsaacPerceptionNode(Node):

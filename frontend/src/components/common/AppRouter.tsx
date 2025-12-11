@@ -1,8 +1,11 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { ThemeProvider } from '../components/common/ThemeToggle';
-import Layout from '../components/common/Layout';
-import TextbookChapterPage from '../pages/textbook/TextbookChapterPage';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import { Routes } from 'react-router-dom';
+import { ThemeProvider } from './ThemeToggle';
+
+import TextbookChapterPage from '../../pages/textbook/TextbookChapterPage';
+import Layout from './Layout';
 
 const AppRouter: React.FC = () => {
   return (

@@ -2,12 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ChapterService, ProgressService } from '../../services/ApiClient';
 import { Chapter, ChapterProgress } from '../../types/Chapter';
-import ChapterCompletionTracker from '../textbook/ChapterCompletionTracker';
-import ChapterNavigationSidebar from '../textbook/ChapterNavigationSidebar';
-import AITutor from '../ai-tutor/AITutor';
-import SimulationViewer from '../simulations/SimulationViewer';
-import LoadingError from '../common/LoadingError';
-
+import ChapterCompletionTracker from '../../components/textbook/ChapterCompletionTracker';
+import ChapterNavigationSidebar from '../../components/textbook/ChapterNavigationSidebar';
+import AITutor from '../../components/ai-tutor/AITutor';
+import SimulationViewer from '../../components/simulations/SimulationViewer';
+import LoadingError from '../../components/common/LoadingError';
 const TextbookChapterPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const [chapter, setChapter] = useState<Chapter | null>(null);
@@ -64,11 +63,11 @@ const TextbookChapterPage: React.FC = () => {
   };
 
   if (error) {
-    return <LoadingError loading={false} error={error} onRetry={() => window.location.reload()} />;
+    return <LoadingError loading={false} error={error} onRetry={() => window.location.reload()} children={undefined} />;
   }
 
   if (loading || !chapter) {
-    return <LoadingError loading={true} error={null} />;
+    return <LoadingError loading={true} error={null} children={undefined} />;
   }
 
   return (

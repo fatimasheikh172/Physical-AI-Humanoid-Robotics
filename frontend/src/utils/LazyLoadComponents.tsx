@@ -1,6 +1,6 @@
 // Lazy loading components for performance optimization
 
-import { lazy, Suspense } from 'react';
+import React, { lazy, Suspense } from 'react';
 import LoadingSpinner from '../components/common/LoadingError';
 
 // Lazy load heavy components like the simulation viewer

@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Chapter } from '../../types/Chapter';
-import apiClient from '../../services/api';
 
 interface AITutorProps {
   context?: string; // Context for the AI tutor (e.g., current chapter title)

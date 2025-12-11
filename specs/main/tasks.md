@@ -34,7 +34,7 @@ The MVP scope starts with a simple differential-drive robot in Gazebo with basic
 
 - [X] T001 Create project structure per implementation plan in backend/digital_twin/
 - [X] T002 [P] Create Unity project structure in unity/digital_twin_visualization/
-- [ ] T003 Set up Python virtual environment with ROS 2 Humble dependencies
+- [X] T003 Set up Python virtual environment with ROS 2 Humble dependencies
 - [ ] T004 Install and configure Unity LTS with Robotics Hub package
 - [X] T005 Create initial ROS 2 launch files structure in backend/digital_twin/gazebo/launch/
 - [X] T006 Create initial Unity scene structure in unity/digital_twin_visualization/Assets/Scenes/
@@ -56,8 +56,8 @@ The MVP scope starts with a simple differential-drive robot in Gazebo with basic
 
 **Tests** (if requested):
 
-- [ ] T013 [P] [US1] Create physics validation test to check gravity and collision detection
-- [ ] T014 [P] [US1] Create sensor validation test to verify sensor topics are publishing
+- [X] T013 [P] [US1] Create physics validation test to check gravity and collision detection
+- [X] T014 [P] [US1] Create sensor validation test to verify sensor topics are publishing
 
 **Implementation**:
 
@@ -79,8 +79,8 @@ The MVP scope starts with a simple differential-drive robot in Gazebo with basic
 
 **Tests** (if requested):
 
-- [ ] T024 [P] [US2] Create transform synchronization test between Gazebo and Unity
-- [ ] T025 [P] [US2] Create UI telemetry display test
+- [X] T024 [P] [US2] Create transform synchronization test between Gazebo and Unity
+- [X] T025 [P] [US2] Create UI telemetry display test
 
 **Implementation**:
 
@@ -101,8 +101,8 @@ The MVP scope starts with a simple differential-drive robot in Gazebo with basic
 
 **Tests** (if requested):
 
-- [ ] T034 [P] [US3] Create sensor fidelity analysis test
-- [ ] T035 [P] [US3] Create perception node validation test
+- [X] T034 [P] [US3] Create sensor fidelity analysis test
+- [X] T035 [P] [US3] Create perception node validation test
 
 **Implementation**:
 

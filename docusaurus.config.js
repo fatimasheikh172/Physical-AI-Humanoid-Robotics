@@ -66,15 +66,16 @@ const config = {
   ],
 
   plugins: [
-    [
-      '@docusaurus/plugin-content-docs',
-      {
-        id: 'ur',
-        path: 'i18n/ur/docusaurus-plugin-content-docs/current',
-        routeBasePath: 'ur',
-        sidebarPath: require.resolve('./i18n/ur/docusaurus-plugin-content-docs/current/sidebars.js'),
-      },
-    ],
+    // [
+    //   '@docusaurus/plugin-content-docs',
+    //   {
+    //     id: 'ur',
+    //     path: 'i18n/ur/docusaurus-plugin-content-docs/current',
+    //     routeBasePath: 'ur',
+    //     // NOTE: Uncomment when Urdu content is ready
+    //     // sidebarPath: require.resolve('./i18n/ur/docusaurus-plugin-content-docs/current/sidebars.js'),
+    //   },
+    // ],
   ],
 
   themeConfig: {

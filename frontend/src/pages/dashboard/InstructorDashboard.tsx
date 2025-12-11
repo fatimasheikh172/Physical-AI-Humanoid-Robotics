@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { CourseService, UserService } from '../../services/ApiClient';
+import { UserService } from '../../services/ApiClient';
 import { Course } from '../../types/Course';
 import { User } from '../../types/User';
-import LoadingError from '../common/LoadingError';
+import LoadingError from '../../components/common/LoadingError';
 
 const InstructorDashboard: React.FC = () => {
   const [courses, setCourses] = useState<Course[]>([]);
@@ -67,11 +67,11 @@ const InstructorDashboard: React.FC = () => {
   }, []);
 
   if (error) {
-    return <LoadingError loading={false} error={error} onRetry={() => window.location.reload()} />;
+    return <LoadingError loading={false} error={error} onRetry={() => window.location.reload()} children={undefined} />;
   }
 
   if (loading || !currentUser) {
-    return <LoadingError loading={true} error={null} />;
+    return <LoadingError loading={true} error={null} children={undefined} />;
   }
 
   return (
